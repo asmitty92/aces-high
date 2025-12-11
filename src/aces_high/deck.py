@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 from .cardtools import coin_flip
 
@@ -41,7 +42,7 @@ class Deck:
     FACES = ("Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King")
 
     def __init__(self):
-        self._reset()
+        self.cards = self._create_cards(self.SUITS, self.FACES)
 
     def __iter__(self):
         return iter(self.cards)
@@ -157,13 +158,19 @@ class Deck:
         self.cards.sort(key=lambda card: card.index)
         return self
 
-    def deal(self):
+    def deal(self, card_count: int = 1) -> List[Card]:
         if self._is_empty():
             raise StopIteration()
-        return self.cards.pop(0)
+        cards = self.cards[:1]
+        self.cards = self.cards[1:]
+        return cards
 
     def take_card(self, index):
         pass
+
+    def return_cards(self, cards):
+        index = random.randint(0, len(self.cards) - 1)
+        self.cards = self.cards[:index] + cards + self.cards[index:]
 
     def _is_empty(self):
         return len(self.cards) <= 0
@@ -175,9 +182,6 @@ class Deck:
         mid = int(len(self.cards) / 2)
 
         return self.cards[:mid], self.cards[mid:]
-
-    def _reset(self):
-        self.cards = self._create_cards(self.SUITS, self.FACES)
 
 
 class PinochleDeck(Deck):

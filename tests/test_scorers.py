@@ -1,4 +1,4 @@
-from aces_high import Card, score_cribbage_hand
+from aces_high import Card, score_cribbage_hand, find_best_poker_hand
 from aces_high import score_poker_hand, PokerHands
 
 
@@ -185,4 +185,12 @@ def test_score_poker_hand_given_royal_flush():
     cards = [Card('Hearts', 'Queen', 12), Card('Hearts', 'Ten', 10), Card('Hearts', 'King', 13),
              Card('Hearts', 'Ace', 1), Card('Hearts', 'Jack', 11)]
     score = score_poker_hand(cards)
-    assert score == PokerHands.STRAIGHT_FLUSH
+    assert score == PokerHands.ROYAL_FLUSH
+
+
+def test_find_best_poker_hand_given_full_house_and_four_of_a_kind():
+    cards = [Card('Hearts', 'Two', 2), Card('Spades', 'Five', 5), Card('Clubs', 'Two', 2),
+             Card('Diamonds', 'Two', 2), Card('Spades', 'Two', 2), Card('Clubs', 'Five', 5),
+             Card('Diamonds', 'Ace', 1)]
+    hand, score = find_best_poker_hand(cards)
+    assert score == PokerHands.FOUR_OF_A_KIND

@@ -57,7 +57,7 @@ def test_riffle_shuffle(standard_deck: Deck):
     index = 0
     standard_deck.riffle_shuffle()
     while not standard_deck._is_empty():
-        indices = [standard_deck.deal().index for _ in range(2)]
+        indices = [standard_deck.deal()[0].index for _ in range(2)]
         assert index in indices
         assert index + 26 in indices
         index += 1
