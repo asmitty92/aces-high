@@ -1,0 +1,21 @@
+[project]
+name = "aces-high"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+[tool.uv]
+dev-dependencies = [
+    "black>=25.1.0",
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "ruff>=0.11.11",
+    "pytest-cov>=6.1.1",
+    "cosmic-ray>=8.4.1",
+]
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[tool.uv.sources]
+aces-high-core = { workspace = true }
+aces-high-poker = { workspace = true }
